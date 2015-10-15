@@ -1,9 +1,8 @@
-javascript:(function(){
-  my_script=document.createElement('SCRIPT');
-  my_script.type='text/javascript';
-  my_script.src='https://raw.githubusercontent.com/SchillerQuinn/FormSubmitScript/master/Scraper.js?x='+(Math.random());
-  document.getElementsByTagName('head')[0].appendChild(my_script);
-})();
+javascript: (function () { 
+    var jsCode = document.createElement('script'); 
+    jsCode.setAttribute('src', 'https://raw.githubusercontent.com/SchillerQuinn/FormSubmitScript/master/Scraper.js?x='(Math.Random()));                  
+  document.body.appendChild(jsCode); 
+ }());
 
 
 /* TODO:
