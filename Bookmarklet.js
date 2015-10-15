@@ -1,10 +1,9 @@
 (function () {
   var script = document.createElement('SCRIPT');
-  script.src = 'http://example.com/the_code.js';
+  script.src = 'https://raw.githubusercontent.com/SchillerQuinn/FormSubmitScript/master/Scraper.js';
   document.body.appendChild(script);
 })()
 /* TODO:
-Change .src
 Grab outputs,
 Show output.
 */
