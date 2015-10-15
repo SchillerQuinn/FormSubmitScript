@@ -1,8 +1,8 @@
 javascript:(function(){
-  _my_script=document.createElement('SCRIPT');
-  _my_script.type='javascript';
-  _my_script.src='https://raw.githubusercontent.com/SchillerQuinn/FormSubmitScript/master/Scraper.js';
-  document.getElementsByTagName('head')[0].appendChild(_my_script);
+  my_script=document.createElement('SCRIPT');
+  my_script.type='text/javascript';
+  my_script.src='https://raw.githubusercontent.com/SchillerQuinn/FormSubmitScript/master/Scraper.js?x='+(Math.random());
+  document.getElementsByTagName('head')[0].appendChild(my_script);
 })();
 
 
