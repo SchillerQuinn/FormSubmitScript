@@ -1,1 +1,1 @@
-<a href=javascript:(function(){alert('Hello World!');})()>test<\a>
+(function(){alert('Hello World!');})()
