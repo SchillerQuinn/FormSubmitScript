@@ -14,7 +14,8 @@
 		};
 		document.getElementsByTagName("head")[0].appendChild(script);
 	} else {
-		initMyBookmarklet();
+		//All of my code
+		alert("swag");
 	}
 	
 	function initMyBookmarklet() {
@@ -31,8 +32,6 @@
 				return s;
 			}
 			//WHERE THE CODE GOES
-			
-			
 			
 			alert("Everything is working");
 		})();
