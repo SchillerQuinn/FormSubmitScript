@@ -20,11 +20,8 @@
 		};
 		document.getElementsByTagName("head")[0].appendChild(script);
 	}
+	$('div').hide
 	/*
-	scrapPage(path){
-		var n = whatever value is stored at that path.
-		return n;
-	}
 	//Grab all of the different variables
 	### I don't know how to find paths or convert them into a form javascript can read ###
 	
