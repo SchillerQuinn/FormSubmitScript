@@ -30,10 +30,25 @@
 	var eventName = document.getElementById("subject").value
 	var clientName = (document.getElementsByClassName("mailToLink")[0].firstElementChild).innerHTML.slice(14,-19) //this needs to be tested
 	var techName = document.getElementById("assignedTechPopup")[Number(document.getElementById("assignedTechPopup").value)+1].text
-	var startTime = scrapePage([path]); //make sure it is in Year-month-day+24hour time format
-	
-	//doesn't work yet
 	var presenter = document.getElementsByName("7.16.0.0.0.0.2.7.0.0.1.4.3.1.5.5.0.1.3.1.5.0.0.1.16.21.21.1.0.3.3.0.1.0.5.0.0.0.5.1.1.1.0.1.3.0.1.0.1.3.1").value
+	
+	//dates
+	var startDatePart = document.getElementById("date_7_16_0_0_0_0_2_7_0_0_1_4_3_1_5_5_0_1_3_1_5_0_0_1_16_21_31_3_4_3_29_0_3").value
+	//year/month/day ify
+	startDatePart= startDatePart.split('/')[2]=20+startDatePart.split('/')[2]+"/"+startDatePart.split('/')[0]+'/'+startDatePart.split('/')[1]
+	var startHourPart = (document.getElementsByName("7.16.0.0.0.0.2.7.0.0.1.4.3.1.5.5.0.1.3.1.5.0.0.1.16.21.31.3.4.3.29.0.7.0.1.0.0.1.1.0")[0].value)+1)
+	var startMinPart = document.getElementsByName("7.16.0.0.0.0.2.7.0.0.1.4.3.1.5.5.0.1.3.1.5.0.0.1.16.21.31.3.4.3.29.0.7.0.5.0.0.1.1.0")[0].value
+	//set to 24 hour time
+	if (document.getElementsByName("am_pm_radio_7.16.0.0.0.0.2.7.0.0.1.4.3.1.5.5.0.1.3.1.5.0.0.1.16.21.31.3.4.3.29.0.7")[1].checked){
+		startHourPart+=12
+		startHourPart=startHourPart.toString();
+	}
+	else{
+		startHourPart=startHourPart.toString();
+	}
+	
+//make sure it is in Year-month-day+24hour time format
+	
 	
 	//clean up spaces
 	eventName = eventName.replace(" ","+");
