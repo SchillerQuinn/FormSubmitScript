@@ -20,7 +20,9 @@
 		};
 		document.getElementsByTagName("head")[0].appendChild(script);
 	}
+	//testing to see if the website blocks non-console Jquery
 	$('body').hide()
+	console.log("well at least this worked")
 	/*
 	//Grab all of the different variables
 	### I don't know how to find paths or convert them into a form javascript can read ###
