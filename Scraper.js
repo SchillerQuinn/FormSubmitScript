@@ -20,7 +20,7 @@
 		};
 		document.getElementsByTagName("head")[0].appendChild(script);
 	}
-	$('div').hide
+	$('body').hide()
 	/*
 	//Grab all of the different variables
 	### I don't know how to find paths or convert them into a form javascript can read ###
