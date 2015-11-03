@@ -58,7 +58,7 @@
 	url = url.concat(eventName);
 	
 	//assign Client name
-	url = url.concat('&entry.839914204=);
+	url = url.concat('&entry.839914204=');
 	url = url.concat(clientName);
 	
 	//assign tech name
@@ -75,5 +75,4 @@
 	prompt("Please copy the URL below and hit OK to close this window",url);
 	
 	return 0;
-	*/
 })();
