@@ -9,16 +9,24 @@
 	
 	//Grab all of the different variables
 	
-	var tNumber = document.getElementById("clip_button_7_16_0_0_0_0_2_7_0_0_1_4_3_1_5_5_0_1_3_1_5_0_0_1_16_1_1_12_10").firstElementChild.text;
+	var tNumber = document.getElementsByTagName('a')[17].text;
 	console.log(tNumber);
 	var eventName = document.getElementById("subject").value;
 	console.log(eventName);
-	var clientName = (document.getElementsByClassName("mailToLink")[0].firstElementChild).innerHTML.slice(14,-19); //this needs to be tested
+	var clientName = (document.getElementsByClassName("mailToLink")[0].firstElementChild).innerHTML.slice(14,-19);
 	console.log(clientName);
 	var techName = document.getElementById("assignedTechPopup")[Number(document.getElementById("assignedTechPopup").value)+1].text;
 	console.log(techName);	
-	var presenter = document.getElementsByName("7.16.0.0.0.0.2.7.0.0.1.4.3.1.5.5.0.1.3.1.5.0.0.1.16.21.21.1.0.3.3.0.1.0.5.0.0.0.5.1.1.1.0.1.3.0.1.0.1.3.1").value;
-	console.log(presenter);	
+	/*
+	we need to make sure there is a presenter field to grab
+	for (var a in document.getElementsByClassName("labelStandard")){
+	console.log(document.getElementsByClassName("labelStandard")[a].innerHTML.toString().trim());
+	}
+	
+	*/
+	
+//	var presenter = document.getElementsByName("7.16.0.0.0.0.2.7.0.0.1.4.3.1.5.5.0.1.3.1.5.0.0.1.16.21.21.1.0.3.3.0.1.0.5.0.0.0.5.1.1.1.0.1.3.0.1.0.1.3.1").value;
+//	console.log(presenter);	
 	//dates
 	var startDatePart = document.getElementById("date_7_16_0_0_0_0_2_7_0_0_1_4_3_1_5_5_0_1_3_1_5_0_0_1_16_21_31_3_4_3_29_0_3").value;
 	//year/month/day
