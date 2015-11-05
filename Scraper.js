@@ -9,32 +9,35 @@
 	
 	//Grab all of the different variables
 	
-	var tNumber = document.getElementsByTagName('a')[17].text;
+	var tNumber = document.querySelector("#TabPanelUpdateContainer > table > tbody > tr:nth-child(3) > td:nth-child(1) > form > table > tbody > tr > td > table > tbody:nth-child(1) > tr:nth-child(1) > td > table > tbody > tr > td:nth-child(4) > table > tbody > tr > td.monthDisplay > table > tbody > tr:nth-child(1) > td").textContent.trim();
 	console.log(tNumber);
-	var eventName = document.getElementById("subject").value;
+	var eventName = document.getElementById("subject").value.trim();
 	console.log(eventName);
-	var clientName = (document.getElementsByClassName("mailToLink")[0].firstElementChild).innerHTML.slice(14,-19);
+	var clientName = (document.getElementsByClassName("mailToLink")[0].firstElementChild).textContent.trim();
 	console.log(clientName);
 	var techName = document.getElementById("assignedTechPopup")[Number(document.getElementById("assignedTechPopup").value)+1].text;
+	techName = techName.replace(" [C]","");
 	console.log(techName);	
-	/*
-	we need to make sure there is a presenter field to grab
-	for (var a in document.getElementsByClassName("labelStandard")){
-	console.log(document.getElementsByClassName("labelStandard")[a].innerHTML.toString().trim());
+	
+	try{
+		var presenter = document.querySelector('#CustomFieldsPanelDiv > table > tbody > tr:nth-child(6) > td.dataStandard > table > tbody > tr > td:nth-child(1) > input[type="text"]').value;
+	}
+	catch(err){
+		var presenter ="";
+		console.log("there is no presenter");
 	}
 	
-	*/
 	
-//	var presenter = document.getElementsByName("7.16.0.0.0.0.2.7.0.0.1.4.3.1.5.5.0.1.3.1.5.0.0.1.16.21.21.1.0.3.3.0.1.0.5.0.0.0.5.1.1.1.0.1.3.0.1.0.1.3.1").value;
-//	console.log(presenter);	
+	//console.log(presenter);	
 	//dates
-	var startDatePart = document.getElementById("date_7_16_0_0_0_0_2_7_0_0_1_4_3_1_5_5_0_1_3_1_5_0_0_1_16_21_31_3_4_3_29_0_3").value;
+	var startDatePart = document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(3) > td.dataStandard > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > table > tbody > tr > td:nth-child(1)").firstChild.value
 	//year/month/day
-	startDatePart= startDatePart.split('/')[2]=20+startDatePart.split('/')[2]+"/"+startDatePart.split('/')[0]+'/'+startDatePart.split('/')[1];
-	var startHourPart = (document.getElementsByName("7.16.0.0.0.0.2.7.0.0.1.4.3.1.5.5.0.1.3.1.5.0.0.1.16.21.31.3.4.3.29.0.7.0.1.0.0.1.1.0")[0].value)+1;
-	var startMinPart = document.getElementsByName("7.16.0.0.0.0.2.7.0.0.1.4.3.1.5.5.0.1.3.1.5.0.0.1.16.21.31.3.4.3.29.0.7.0.5.0.0.1.1.0")[0].value;
+	startDatePart= startDatePart.split('/')[2]=20+startDatePart.split('/')[2]+"-"+startDatePart.split('/')[0]+'-'+startDatePart.split('/')[1];
+	//keep hour as int right now to help with AM/PM selection later
+	var startHourPart = parseInt(document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(3) > td.dataStandard > table > tbody > tr:nth-child(1) > td:nth-child(4) > table > tbody > tr > td:nth-child(1) > select").value)+1;
+	var startMinPart = document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(3) > td.dataStandard > table > tbody > tr:nth-child(1) > td:nth-child(4) > table > tbody > tr > td:nth-child(3) > select").value;
 	//set to 24 hour time
-	if (document.getElementsByName("am_pm_radio_7.16.0.0.0.0.2.7.0.0.1.4.3.1.5.5.0.1.3.1.5.0.0.1.16.21.31.3.4.3.29.0.7")[1].checked){
+	if (document.querySelector('#StatusPanelDiv > table > tbody > tr:nth-child(3) > td.dataStandard > table > tbody > tr:nth-child(1) > td:nth-child(4) > table > tbody > tr > td:nth-child(8) > input[type="radio"]').checked){
 		startHourPart+=12;
 		startHourPart=startHourPart.toString();
 	}
@@ -42,23 +45,23 @@
 		startHourPart=startHourPart.toString();
 	}
 	//Date in Year-month-day+24hour time format
-	var date = startDatePart + startHourPart + startMinPart;
+	var date = startDatePart +"+"+startHourPart +":"+startMinPart;
 	console.log(date);	
 	
 
 	//clean up spaces
 	eventName = eventName.replace(" ","+");
-	clientName = cliantName.replace(" ","+");
-	techName = techName.replace(" ","+");	
+	eventName = eventName.replace(" ","+");
+	clientName = clientName.replace(" ","+");
+	techName = techName.replace(" ","+");
 	presenter = presenter.replace(" ","+");
 	
 	
-	
 	//base url
-	var url = 'https://docs.google.com/a/carleton.edu/forms/d/1JVcYRIetTJf1lKd6noNayl7zaTXDpbDmJE9g97xtLPY/viewform?entry.787468797';
+	var url = 'https://docs.google.com/a/carleton.edu/forms/d/1JVcYRIetTJf1lKd6noNayl7zaTXDpbDmJE9g97xtLPY/viewform?';
 	
 	//assign ticketnumber
-	url = url.concat('&entry.1873838456=');
+	url = url.concat('entry.1873838456=');
 	url = url.concat(tNumber);
 	
 	//assign event name
@@ -73,14 +76,16 @@
 	url = url.concat('&entry.1545601613=');
 	url = url.concat(techName);
 	
-	url = url.concat('&entry.519993405');
-	url = url.concat(startTime);
+	url = url.concat('&entry.519993405=');
+	url = url.concat(date);
 	
-	url = url.concat('&entry.129346025');
-	url = url.concat(presenter);
-	
+
+	if (!(presenter=="")){
+		url = url.concat('&entry.129346025=');
+		url = url.concat(presenter);
+	}
 	//somehow return the url string in a way the reader can copy it.
 	prompt("Please copy the URL below and hit OK to close this window",url);
-	
+
 	return 0;
 })();
