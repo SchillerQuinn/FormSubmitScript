@@ -2,25 +2,41 @@
 	/*
 	TODO
 	-check URL to make sure script only runs on webhelpdesk and only on closed tickets
-	-error handling (maybe give option to manually enter in information?)
-		-will have to load in a popup or a side bar so they can copy and paste.
-	-automatically attaching to clipboard.
 	*/
 	
 	//Grab all of the different variables
 	
-	var tNumber = document.querySelector("#TabPanelUpdateContainer > table > tbody > tr:nth-child(3) > td:nth-child(1) > form > table > tbody > tr > td > table > tbody:nth-child(1) > tr:nth-child(1) > td > table > tbody > tr > td:nth-child(4) > table > tbody > tr > td.monthDisplay > table > tbody > tr:nth-child(1) > td").textContent.trim();
-	console.log(tNumber);
-	var eventName = document.getElementById("subject").value.trim();
-	console.log(eventName);
-	var clientName = (document.getElementsByClassName("mailToLink")[0].firstElementChild).textContent.trim();
-	console.log(clientName);
-	var techName = document.getElementById("assignedTechPopup")[Number(document.getElementById("assignedTechPopup").value)+1].text;
-	techName = techName.replace(" [C]","");
-	console.log(techName);	
-	
+	try{
+		var tNumber = document.querySelector("#TabPanelUpdateContainer > table > tbody > tr:nth-child(3) > td:nth-child(1) > form > table > tbody > tr > td > table > tbody:nth-child(1) > tr:nth-child(1) > td > table > tbody > tr > td:nth-child(4) > table > tbody > tr > td.monthDisplay > table > tbody > tr:nth-child(1) > td").textContent.trim();
+	}
+	catch(err){
+		var tNumber = " ";
+	}
+	try{
+		var eventName = document.getElementById("subject").value;
+		eventName = eventName.trim()
+	}
+	catch(err){
+		var eventName = " ";
+	}
+	try{
+		var clientName = (document.getElementsByClassName("mailToLink")[0].firstElementChild).textContent.trim();
+	}
+	catch(err){
+		var clientName = " ";
+		
+	}
+	try{
+		var techName = document.getElementById("assignedTechPopup")[Number(document.getElementById("assignedTechPopup").value)+1].text;
+		techName = techName.replace("[C]","").trim();
+		techName = techName.replace("[V]","").trim();
+	}
+	catch(err){
+		var techName = " ";
+	}
 	try{
 		var presenter = document.querySelector('#CustomFieldsPanelDiv > table > tbody > tr:nth-child(6) > td.dataStandard > table > tbody > tr > td:nth-child(1) > input[type="text"]').value;
+		console.log(presenter)
 	}
 	catch(err){
 		var presenter ="";
@@ -43,25 +59,58 @@
 	}
 	else{
 		startHourPart=startHourPart.toString();
+		if (startHourPart.length==1){
+			startHourPart= "0"+startHourPart;
+		}
 	}
 	//Date in Year-month-day+24hour time format
 	var date = startDatePart +"+"+startHourPart +":"+startMinPart;
-	console.log(date);	
+
 	
 
 	//clean up spaces
-	eventName = eventName.replace(" ","+");
-	eventName = eventName.replace(" ","+");
-	clientName = clientName.replace(" ","+");
-	techName = techName.replace(" ","+");
-	presenter = presenter.replace(" ","+");
-	
+	while (eventName.includes(" ")){
+		eventName = eventName.replace(" ","+");
+	}
+	while (clientName.includes(" ")){
+		clientName = clientName.replace(" ","+");
+	}
+	while (techName.includes(" ")){
+		techName = techName.replace(" ","+");
+	}
+	while (presenter.includes(" ")){
+		presenter = presenter.replace(" ","+");
+	}
+
+	console.log(tNumber);
+	console.log(eventName);
+	console.log(clientName);
+	console.log(techName);
+	console.log(date);	
+	console.log(presenter);
 	
 	//base url
-	var url = 'https://docs.google.com/a/carleton.edu/forms/d/1JVcYRIetTJf1lKd6noNayl7zaTXDpbDmJE9g97xtLPY/viewform?';
-	
+	//var url = 'https://docs.google.com/a/carleton.edu/forms/d/1JVcYRIetTJf1lKd6noNayl7zaTXDpbDmJE9g97xtLPY/viewform?';
+	var url = 'https://docs.google.com/forms/d/1JVcYRIetTJf1lKd6noNayl7zaTXDpbDmJE9g97xtLPY/viewform?entry.787468797';
+	var url2 = "https://docs.google.com/a/carleton.edu/forms/d/1JVcYRIetTJf1lKd6noNayl7zaTXDpbDmJE9g97xtLPY/viewform?entry.787468797&entry.1873838456&entry.636977984&entry.839914204&entry.1545601613&entry.519993405&entry.129346025&entry.580111436="
+	var test = "";
+	test = test.concat(tNumber);
+	test = test.concat("$!$");
+	test = test.concat(eventName);
+	test = test.concat("$!$");
+	test = test.concat(clientName);
+	test = test.concat("$!$");
+	test = test.concat(techName);
+	test = test.concat("$!$");
+	test = test.concat(date);
+	test = test.concat("$!$");
+	if (!(presenter=="")){
+		test = test.concat(presenter);
+	}
+	return url2.concat(test)
+	/*
 	//assign ticketnumber
-	url = url.concat('entry.1873838456=');
+	url = url.concat('&entry.1873838456=');
 	url = url.concat(tNumber);
 	
 	//assign event name
@@ -87,5 +136,8 @@
 	//somehow return the url string in a way the reader can copy it.
 	prompt("Please copy the URL below and hit OK to close this window",url);
 
-	return 0;
+	return url;
+	*/
+
+
 })();
