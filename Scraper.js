@@ -7,6 +7,14 @@
     //Grab all of the different variables
 
     //ticket number
+    try{
+    	if (!((document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(1) > td:nth-child(2) > div:nth-child(1) >div > select")[document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(1) > td:nth-child(2) > div:nth-child(1) >div > select").value].text)=="Resolved")){
+    		window.alert("Warning! This ticket is not resolved yet. Press ok to continue.")
+    	}
+    }
+    catch(err){
+    	console.log("error in status");
+    }
     try {
         var tNumber = document.querySelector("#TabPanelUpdateContainer > table > tbody > tr:nth-child(3) > td:nth-child(1) > form > table > tbody > tr > td > table > tbody:nth-child(1) > tr:nth-child(1) > td > table > tbody > tr > td:nth-child(4) > table > tbody > tr > td.monthDisplay > table > tbody > tr:nth-child(1) > td").textContent.trim();
     } catch (err) {
@@ -46,26 +54,35 @@
 
     //dates
     try {
-        var startDatePart = document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(3) > td.dataStandard > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > table > tbody > tr > td:nth-child(1)").firstChild.value
+        var startDatePart = document.querySelector("#CustomFieldsPanelDiv > table > tbody > tr:nth-child(2) > td.dataStandard > table > tbody > tr > td:nth-child(1) > table > tbody > tr > td:nth-child(1) > div > table > tbody > tr > td").firstChild.value
             //year/month/day
         startDatePart = startDatePart.split('/')[2] = 20 + startDatePart.split('/')[2] + "-" + startDatePart.split('/')[0] + '-' + startDatePart.split('/')[1];
         //keep hour as int right now to help with AM/PM selection later
-        var startHourPart = parseInt(document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(3) > td.dataStandard > table > tbody > tr:nth-child(1) > td:nth-child(4) > table > tbody > tr > td:nth-child(1) > select").value) + 1;
-        var startMinPart = document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(3) > td.dataStandard > table > tbody > tr:nth-child(1) > td:nth-child(4) > table > tbody > tr > td:nth-child(3) > select").value;
+        var startHourPart = parseInt(document.querySelector("#CustomFieldsPanelDiv > table > tbody > tr:nth-child(2) > td.dataStandard > table > tbody > tr > td:nth-child(1) > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td:nth-child(1) > select").value) + 1;
+        var startMinPart = document.querySelector("#CustomFieldsPanelDiv > table > tbody > tr:nth-child(2) > td.dataStandard > table > tbody > tr > td:nth-child(1) > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td:nth-child(3) > select").value;
         //set to 24 hour time
-        if (document.querySelector('#StatusPanelDiv > table > tbody > tr:nth-child(3) > td.dataStandard > table > tbody > tr:nth-child(1) > td:nth-child(4) > table > tbody > tr > td:nth-child(8) > input[type="radio"]').checked) {
+        
+        //24 hour time 12 bug fix
+        if (startHourPart == 12){
+        	startHourPart= 0
+        }
+        if (document.querySelector('#CustomFieldsPanelDiv > table > tbody > tr:nth-child(2) > td.dataStandard > table > tbody > tr > td:nth-child(1) > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td:nth-child(8) > input[type="radio"]').checked) {
             startHourPart += 12;
             startHourPart = startHourPart.toString();
         } else {
             startHourPart = startHourPart.toString();
-            if (startHourPart.length == 1) {
-                startHourPart = "0" + startHourPart;
-            }
+        }
+        if (startHourPart.length == 1) {
+		startHourPart = "0" + startHourPart;
+        }
+        if (startMinPart.length == 1) {
+        startMinPart = "0" + startMinPart;
         }
         //Date in Year-month-day+24hour time format
         var date = startDatePart + "+" + startHourPart + ":" + startMinPart;
     } catch (err) {
-        prompt("Something REALLLLLY messed up");
+        window.alert("Something REALLLLLY messed up");
+        var date = " "
     }
 
 
@@ -95,6 +112,8 @@
     //var url = 'https://docs.google.com/forms/d/1JVcYRIetTJf1lKd6noNayl7zaTXDpbDmJE9g97xtLPY/viewform?entry.787468797';
     var url2 = "https://docs.google.com/a/carleton.edu/forms/d/1JVcYRIetTJf1lKd6noNayl7zaTXDpbDmJE9g97xtLPY/viewform?entry.787468797&entry.1873838456&entry.636977984&entry.839914204&entry.1545601613&entry.519993405&entry.129346025&entry.580111436="
     var test = "";
+    test = test.concat(date);
+    test = test.concat("$!$");
     test = test.concat(tNumber);
     test = test.concat("$!$");
     test = test.concat(eventName);
@@ -102,8 +121,6 @@
     test = test.concat(clientName);
     test = test.concat("$!$");
     test = test.concat(techName);
-    test = test.concat("$!$");
-    test = test.concat(date);
     test = test.concat("$!$");
     if (!(presenter == "")) {
         test = test.concat(presenter);
@@ -137,7 +154,7 @@
     */
     prompt("Please copy the URL below and hit OK to close this window", url2.concat(test));
 
-    return url2.concat(test)
+    return url2.concat(test);
 
 
 })();
