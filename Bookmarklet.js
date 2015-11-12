@@ -4,10 +4,3 @@ javascript: (function () {
   document.body.appendChild(jsCode); 
   console.log('Loaded externally...')
  }());
-
-
-/* TODO:
-Grab outputs,
-Show output.
-?x='(Math.Random())
-*/
