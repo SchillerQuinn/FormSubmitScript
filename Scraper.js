@@ -1,9 +1,4 @@
 (function() {
-    /*
-    TODO
-    -check URL to make sure script only runs on webhelpdesk and only on closed tickets
-    */
-
     //Grab all of the different variables
 
     //ticket number
