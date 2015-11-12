@@ -90,6 +90,9 @@
     }
     while (techName.includes(" ")) {
         techName = techName.replace(" ", "+");
+        if (techName.includes("&")){
+        	techName = techName.replace("&","and");
+        }
     }
     while (presenter.includes(" ")) {
         presenter = presenter.replace(" ", "+");
