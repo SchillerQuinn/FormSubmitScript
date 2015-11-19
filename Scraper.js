@@ -3,7 +3,8 @@
 
     //ticket number
     try{
-    	if (!((document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(1) > td:nth-child(2) > div:nth-child(1) >div > select")[document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(1) > td:nth-child(2) > div:nth-child(1) >div > select").value].text)=="Resolved")){
+    	var status = (document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(1) > td:nth-child(2) > div:nth-child(1) >div > select")[document.querySelector("#StatusPanelDiv > table > tbody > tr:nth-child(1) > td:nth-child(2) > div:nth-child(1) >div > select").value].text);
+    	if (!(status=="Resolved"||status == "Closed")){
     		window.alert("Warning! This ticket is not resolved yet. Press ok to continue.")
     	}
     }
